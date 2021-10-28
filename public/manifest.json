@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "Mixer",
+  "name": "Compare audio side by side",
   "icons": [
     {
       "src": "favicon.ico",
