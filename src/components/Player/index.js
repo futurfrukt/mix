@@ -1,5 +1,6 @@
-import {useState, useRef, useEffect} from "react";
+import {useState, useRef, useEffect, useCallback} from "react";
 import cn from 'classnames';
+import throttle from 'lodash.debounce';
 import './index.css';
 
 const STATUS = {
@@ -8,13 +9,12 @@ const STATUS = {
     ready: "ready",
 }
 
-// https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/file
 export const Player = () => {
     const [status, setStatus] = useState(STATUS.empty);
     const [sources, setSources] = useState([]);
     const [count, setCount] = useState(0);
     const [activeId, setActiveId] = useState(undefined);
-    const [currentTime, setCurrentTime] = useState(0);
+    const time = useRef(0);
     const containerRef = useRef();
     const playersRef = useRef(new Set());
 
@@ -51,41 +51,35 @@ export const Player = () => {
         }
     }, [sources, count]);
 
-    useEffect(() => {
-        console.log('>>', playersRef);
-    }, [activeId]);
-
-    const onPlay = ({ id }) => {
-        console.log('>> onPlay', { id, activeId });
-        for (let audio of playersRef.current) {
-            const audioId = audio.dataset.id;
-            if (audioId === id) {
-                if (audioId !== activeId && audio.duration >= currentTime) {
-                    audio.currentTime = currentTime;
-                    if (audio.paused) {
-                        audio.play();
+    const onPlay = useCallback(
+        throttle(({id}) => {
+            console.log('>> onPlay', {id, activeId});
+            for (let audio of playersRef.current) {
+                const audioId = audio.dataset.id;
+                if (audioId === id) {
+                    if (audioId !== activeId && audio.duration >= time.current) {
+                        audio.currentTime = time.current;
+                        if (audio.paused) {
+                            audio.play();
+                        }
                     }
+                } else {
+                    audio.pause();
                 }
-            } else {
-                audio.pause();
             }
-        }
-        setActiveId(id);
-    }
+            setActiveId(id);
+        }, 100),
+        [activeId]
+    )
 
     const onTimeUpdate = ({currentTime, id}) => {
-        console.log('>> onTimeUpdate', id, activeId, currentTime);
         if (id !== activeId) {
             return;
         }
-        setCurrentTime(currentTime);
-        // TODO
-        // if (id !== activeId) {
-        //     onPlay({ id });
-        // }
+        time.current = currentTime;
     }
 
-    const onSeeked = ({ target }) => {
+    const onSeeked = ({target}) => {
         if (target.paused) {
             target.play();
         }
@@ -107,15 +101,15 @@ export const Player = () => {
     if (status === STATUS.ready) {
         return <div className="player" ref={containerRef}>
             {sources.map((source) => (<audio
-                className={cn({ disabled: source.id !== activeId })}
+                className={cn({disabled: source.id !== activeId})}
                 ref={onRef}
                 controls
                 data-id={source.id}
                 muted={false}
                 key={source.id}
                 src={source.blob}
-                onMouseOver={() => onPlay({ id: source.id })}
-                onPlay={(e) => onPlay({ id: source.id })}
+                onMouseOver={() => onPlay({id: source.id})}
+                onPlay={(e) => onPlay({id: source.id})}
                 onSeeked={(e) => onSeeked(e)}
                 onTimeUpdate={(e) => onTimeUpdate({
                     currentTime: e.target.currentTime,
