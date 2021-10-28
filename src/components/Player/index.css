@@ -6,12 +6,24 @@
     justify-content: center;
 }
 
-.player audio {
+.player .item {
     margin-bottom: 8px;
     width: 60%;
     max-width: 500px;
+    opacity: var(--opacity-fade);
 }
 
-.player audio.disabled {
-    opacity: 0.7;
+.player .item.item__active {
+    opacity: 1;
+}
+
+.player .item__title {
+    text-align: right;
+    color: var(--color-text);
+    font-size: 80%;
+    margin: 0 32px 4px;
+}
+
+.player .item audio {
+    width: 100%;
 }

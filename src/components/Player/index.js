@@ -100,22 +100,26 @@ export const Player = () => {
 
     if (status === STATUS.ready) {
         return <div className="player" ref={containerRef}>
-            {sources.map((source) => (<audio
-                className={cn({disabled: source.id !== activeId})}
-                ref={onRef}
-                controls
-                data-id={source.id}
-                muted={false}
+            {sources.map((source) => (<div
                 key={source.id}
-                src={source.blob}
-                onMouseOver={() => onPlay({id: source.id})}
-                onPlay={(e) => onPlay({id: source.id})}
-                onSeeked={(e) => onSeeked(e)}
-                onTimeUpdate={(e) => onTimeUpdate({
-                    currentTime: e.target.currentTime,
-                    id: source.id,
-                })}
-            />))}
+                className={cn("item", {item__active: source.id === activeId})}
+            >
+                <div className="item__title">{source.name}</div>
+                <audio
+                    ref={onRef}
+                    controls
+                    data-id={source.id}
+                    muted={false}
+                    src={source.blob}
+                    onMouseOver={() => onPlay({id: source.id})}
+                    onPlay={(e) => onPlay({id: source.id})}
+                    onSeeked={(e) => onSeeked(e)}
+                    onTimeUpdate={(e) => onTimeUpdate({
+                        currentTime: e.target.currentTime,
+                        id: source.id,
+                    })}
+                />
+            </div>))}
         </div>
     }
 

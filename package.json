@@ -16,7 +16,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "cross-env NODE_ENV=production PUBLIC_URL=\"mix/\" react-scripts build",
+    "build": "cross-env NODE_ENV=production PUBLIC_URL=\".\" react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "predeploy": "yarn build",
