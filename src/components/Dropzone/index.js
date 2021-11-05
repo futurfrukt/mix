@@ -11,7 +11,7 @@ export const DropZone = ({onDrop}) => {
     return (
         <div className={cn("dropzone", { "dropzone_active": isDragActive })} {...getRootProps()}>
             <input {...getInputProps()} />
-            <div className={"dropzone__area"}>
+            <div>
                 <div className={"dropzone__button"}>
                     {
                         isDragActive
@@ -19,7 +19,7 @@ export const DropZone = ({onDrop}) => {
                             : "Drag'n'drop audio files to this page"
                     }
                     <br/>
-                    <span>or click this button</span>
+                    <span>or just click</span>
                 </div>
             </div>
         </div>
