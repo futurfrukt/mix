@@ -26,6 +26,10 @@
     background-color: var(--color-light);
 }
 
+.dropzone:hover .dropzone__button:hover {
+    box-shadow: 0 0 10px #51545c;
+}
+
 .dropzone .dropzone__button span {
     font-size: 80%;
 }

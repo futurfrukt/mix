@@ -7,7 +7,7 @@
 }
 
 .player .item {
-    padding: 12px;
+    padding: 4px 16px 16px;
     width: 60%;
     max-width: 500px;
     opacity: var(--opacity-fade);
