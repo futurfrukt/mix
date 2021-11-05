@@ -7,13 +7,15 @@
 }
 
 .player .item {
-    margin-bottom: 8px;
+    padding: 12px;
     width: 60%;
     max-width: 500px;
     opacity: var(--opacity-fade);
+    border-radius: 12px;
 }
 
 .player .item.item__active {
+    background-color: var(--color-light);
     opacity: 1;
 }
 
@@ -26,4 +28,10 @@
 
 .player .item audio {
     width: 100%;
+}
+
+@media(max-width: 400px) {
+    .player .item {
+        width: 90%;
+    }
 }

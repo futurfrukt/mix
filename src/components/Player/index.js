@@ -2,6 +2,7 @@ import {useState, useRef, useEffect, useCallback} from "react";
 import cn from 'classnames';
 import throttle from 'lodash.debounce';
 import './index.css';
+import {DropZone} from "../Dropzone";
 
 const STATUS = {
     empty: "empty",
@@ -24,9 +25,8 @@ export const Player = () => {
         }
     }
 
-    const onChange = (inputEvent) => {
+    const onChange = ({files}) => {
         setStatus(STATUS.loading);
-        const {files} = inputEvent.target;
         setCount(files.length);
         for (let i = 0; i < files.length; i++) {
             const file = files[i];
@@ -70,7 +70,7 @@ export const Player = () => {
             setActiveId(id);
         }, 100),
         [activeId]
-    )
+    );
 
     const onTimeUpdate = ({currentTime, id}) => {
         if (id !== activeId) {
@@ -86,12 +86,7 @@ export const Player = () => {
     }
 
     if (status === STATUS.empty) {
-        return (<input
-            type="file"
-            accept="audio/*"
-            multiple
-            onChange={onChange}
-        />);
+        return (<DropZone onDrop={onChange}/>);
     }
 
     if (status === STATUS.loading) {

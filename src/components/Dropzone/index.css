@@ -1,0 +1,34 @@
+.dropzone {
+    align-items: center;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-self: stretch;
+    margin: -19px 0 -36px;
+}
+
+.dropzone_active {
+    box-shadow: inset 0 0 50px var(--color-light);
+}
+
+.dropzone .dropzone__area {
+
+}
+
+.dropzone .dropzone__area .dropzone__button {
+    cursor: pointer;
+    text-align: center;
+    border: 1px solid var(--color-light);
+    padding: 16px;
+    border-radius: 8px;
+    width: 270px;
+}
+
+.dropzone .dropzone__area .dropzone__button:hover {
+    background-color: var(--color-light);
+}
+
+.dropzone .dropzone__area .dropzone__button span {
+    font-size: 80%;
+}
