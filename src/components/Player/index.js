@@ -53,7 +53,6 @@ export const Player = () => {
 
     const onPlay = useMemo(
         () => throttle(({id}) => {
-            console.log('>> onPlay', {id, activeId});
             for (let audio of playersRef.current) {
                 const audioId = audio.dataset.id;
                 if (audioId === id) {
@@ -69,7 +68,7 @@ export const Player = () => {
             }
             setActiveId(id);
         }, 100),
-        [activeId]
+        [activeId, setActiveId]
     );
 
     const onTimeUpdate = ({currentTime, id}) => {
