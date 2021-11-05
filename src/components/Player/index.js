@@ -1,4 +1,4 @@
-import {useState, useRef, useEffect, useCallback} from "react";
+import {useState, useRef, useEffect, useCallback, useMemo} from "react";
 import cn from 'classnames';
 import throttle from 'lodash.debounce';
 import './index.css';
@@ -51,8 +51,8 @@ export const Player = () => {
         }
     }, [sources, count]);
 
-    const onPlay = useCallback(
-        throttle(({id}) => {
+    const onPlay = useMemo(
+        () => throttle(({id}) => {
             console.log('>> onPlay', {id, activeId});
             for (let audio of playersRef.current) {
                 const audioId = audio.dataset.id;
