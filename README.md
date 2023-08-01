@@ -1,4 +1,4 @@
-## Side-to-side compare audio
-While looking for the best version
+## Drop: compare audio side-to-side
+Drag'n'drop audio files into the page, listen to the one under the cursor, smoothly switch playback with time synchronisation.
 
-Demo: [futurfrukt.github.io/mix](https://futurfrukt.github.io/mix/)
+[futurfrukt.github.io/mix](https://futurfrukt.github.io/mix/)

@@ -4,14 +4,16 @@ import {Player} from "../Player";
 import {Footer} from "../Footer";
 
 export function App() {
-    return (
-        <div className="app">
-            <Header/>
-            <div className="main">
-                <Player/>
-            </div>
-            <Footer/>
-        </div>
-    );
+  const standalone = document.location.pathname !== "/embed";
+
+  return (
+    <div className="app">
+      {standalone && <Header/> }
+      <div className="main">
+        <Player/>
+      </div>
+      <Footer/>
+    </div>
+  );
 }
 
